@@ -1,0 +1,10 @@
+twig:
+    default_path: '%kernel.project_dir%/templates'
+    globals:
+        app_name: 'My App'
+        app_version: '1.0.0'
+        author: 'Virgis'
+
+when@test:
+    twig:
+        strict_variables: true
