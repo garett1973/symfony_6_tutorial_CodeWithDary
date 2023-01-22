@@ -1,0 +1,1 @@
+alert('method_2.js');
