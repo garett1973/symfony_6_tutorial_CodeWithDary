@@ -45,6 +45,7 @@ class MoviesController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $newMovie = $form->getData();
             $imagePath = $form->get('imagePath')->getData();
+
             if ($imagePath) {
                 $newFilename = uniqid() . '.' . $imagePath->guessExtension();
                 try {
@@ -56,6 +57,8 @@ class MoviesController extends AbstractController
                     return new Response('Error: ' . $e->getMessage());
                 }
                 $newMovie->setImagePath('/uploads/' . $newFilename);
+            } else {
+                $newMovie->setImagePath('/uploads/default.jpg');
             }
 
             $this->em->persist($newMovie);
@@ -74,7 +77,6 @@ class MoviesController extends AbstractController
     {
         $movie = $this->movieRepository->find($id);
         $form = $this->createForm(MovieFormType::class, $movie);
-
         $form->handleRequest($request);
         $imagePath = $form->get('imagePath')->getData();
 
